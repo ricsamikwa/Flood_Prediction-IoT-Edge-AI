@@ -3,6 +3,10 @@ import pandas
 import random
 from time import sleep
 
+#sensor data arrays
+rainfall_array = []
+water_level_array= []
+
 # load trained LSTM model and print model summary
 def loadTrainedLSTMModel():
     print("\n===========STARTING=============")
@@ -12,7 +16,7 @@ def loadTrainedLSTMModel():
     return model
 
 # structure data for multivariate lstm forecasting
-def create_multivariate_LSTM_form(sensor_data_sequence, num_past_hours=1, num_predictions=1, dropnan=True):
+def create_multivariate_LSTM_form(sensor_data_sequence, num_past_hours=1, num_predictions=1):
     
 	num_features = sensor_data_sequence.shape[1]
 
@@ -34,37 +38,33 @@ def create_multivariate_LSTM_form(sensor_data_sequence, num_past_hours=1, num_pr
 		else:
 			names += [('var%d(t+%d)' % (m+1, n)) for m in range(num_features)]
 
-	# combine all columns
+	# combine all columns and remove NaN values
 	combined_data = pandas.concat(columns, axis=1)
 	combined_data.columns = names
+	combined_data.dropna(inplace=True)
 
-	# drop rows with NaN values
-	if dropnan:
-		combined_data.dropna(inplace=True)
 	return combined_data
 
-def getSensorDataSequence():
-    rainfall_array = []
-    water_level_array= []
-    for x in range(0, 11):
-
-      current_rainfall_scaled = random.random()
-      current_water_level_scaled = random.random()
+def getCurrentSensorData():
+    current_rainfall_scaled = random.random()
+    current_water_level_scaled = random.random()
     
-      print("\nRainfall Amount at (t - ",(10 -x),") hours %.3f: ", (current_rainfall_scaled*111.4)," mm")
-      print("Water Level at (t - ",(10 -x),") hours : %.3f", (current_water_level_scaled*3.3)," m")
-  
-      rainfall_array.append(current_rainfall_scaled)
-      water_level_array.append(current_water_level_scaled)
-      sleep(2)
+    print('\nRainfall : %.3f mm' %(current_rainfall_scaled*111.4))
+    print('Water Level : %.3f m\n' %(current_water_level_scaled*3.3))
+
+    rainfall_array.append(current_rainfall_scaled)
+    water_level_array.append(current_water_level_scaled)
+
+def getSensorDataSequence():
     sleep(1)
-    print("\ncreating a two dimensional array")
-    realtime_historical_data = {'rainfall (mm)': rainfall_array,
-        'Level (m)': water_level_array
+    print("\n=========>\nProcessing data for forecasting at time : ",(pred_num +1))
+    
+    realtime_historical_data = {'rainfall (mm)': rainfall_array[pred_num:pred_num+11],
+        'Level (m)': water_level_array[pred_num:pred_num+11]
         }
-    print("\ncreating a dataframe")
+    print("\nDataframe with scaled values (required input for LSTM)")
     realtime_historical_data_df = pandas.DataFrame(realtime_historical_data, columns = ['rainfall (mm)', 'Level (m)'])
-    print (realtime_historical_data_df.head())
+    print (realtime_historical_data_df)
 
     return realtime_historical_data_df
 
@@ -80,7 +80,7 @@ def dataPreprosessing(sensor_data_sequence_df):
 
     #change data frame to array
     sensor_data_sequence = sensor_data_sequence_df.to_numpy()
-    #print(sensor_data.shape)
+    print(sensor_data_sequence.shape)
     
     #reframing the data for multivariate LSTM time series forecasting
     multi_LSTM_reframed_data = create_multivariate_LSTM_form(sensor_data_sequence, num_past_hours, 1)
@@ -94,6 +94,8 @@ def dataPreprosessing(sensor_data_sequence_df):
 
     return multi_LSTM_reframed_data
 
+#prediction num
+pred_num = 0
 
 if __name__ == '__main__':
     
@@ -101,29 +103,34 @@ if __name__ == '__main__':
     model = loadTrainedLSTMModel()
 
     while True:
-        #10 hours historical rainfall and water level data
-        sensor_data_sequence_df = getSensorDataSequence()
+        getCurrentSensorData()
 
-        processed_data =  dataPreprosessing(sensor_data_sequence_df)
-       
-        #make prediction of water level (10 hours ahead of time)
-        predicted_waterlevel = model.predict(processed_data)
+        if(len(rainfall_array) > 10):
+            #10 hours historical rainfall and water level data
+            sensor_data_sequence_df = getSensorDataSequence()
 
-        print("predicted_waterlevel",predicted_waterlevel)
-        # invert scaling for forecast
-        inv_predicted_waterlevel = predicted_waterlevel[0][0] * 3.3
+            processed_data =  dataPreprosessing(sensor_data_sequence_df)
+        
+            #make prediction of water level (10 hours ahead of time)
+            predicted_waterlevel = model.predict(processed_data)
 
-        #@title Flood possibility
+            print("==========>Forecasting")
+            # invert scaling for forecast
+            inv_predicted_waterlevel = predicted_waterlevel[0][0] * 3.3
 
-        print('Expected water level in 10 hours (t + 10) is %.3f m' % inv_predicted_waterlevel )
+            #@title Flood possibility
 
-        print("-------------Flood possibility----------------")
-        #based on the dataset it is likely to flood when predicted water level exceeds 1.5 m
-        if (inv_predicted_waterlevel > 1.5):
-            print("FLOOD")
-            print("================>Issue Alert==============>")
-        else:
-            print("No FLOOD")
+            print('Expected water level in 10 hours (t + 10) is %.3f m' % inv_predicted_waterlevel )
 
-        print("Sleep")
-        sleep(20)
+            print("-------------Flood possibility----------------")
+            #based on the dataset it is likely to flood when predicted water level exceeds 1.5 m
+            if (inv_predicted_waterlevel > 1.5):
+                print("FLOOD")
+                print("================>Issue Alert==============>")
+            else:
+                print("No FLOOD")
+
+            print("Sleep")
+            pred_num = pred_num + 1
+            sleep(2)
+        sleep(2)
