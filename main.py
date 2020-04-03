@@ -188,7 +188,7 @@ def dataLoop(thunderboards):
         threads.append(t)
         print('Starting thread {} for {}'.format(t, devId))
         t.start()
-        sleep(2)
+        sleep(1)
 
 ########################################################################
 
@@ -230,5 +230,5 @@ if __name__ == '__main__':
 
             print("Sleep")
             pred_num = pred_num + 1
-            sleep(2)
+            sleep(0)
         sleep(2)
