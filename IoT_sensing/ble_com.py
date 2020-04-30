@@ -1,8 +1,9 @@
 import bluepy.btle as btle
 
-p = btle.Peripheral("de:fc:54:87:b0:04")
+p = btle.Peripheral("f9:93:a1:9a:df:af")
 services=p.getServices()
 s = p.getServiceByUUID(list(services)[2].uuid)
 c = s.getCharacteristics()[0]
-c.write(bytes("0001".encode())
-p.disconnect()
+value = c.read(bytes("0001")
+print("The value "+value)
+# p.disconnect()
