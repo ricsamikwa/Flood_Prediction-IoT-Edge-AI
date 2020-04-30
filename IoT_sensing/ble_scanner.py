@@ -1,4 +1,5 @@
 from bluepy.btle import Scanner, DefaultDelegate
+from time import sleep
 
 class ScanDelegate(DefaultDelegate):
     def __init__(self):
@@ -10,17 +11,20 @@ class ScanDelegate(DefaultDelegate):
         elif dev.addr == "f9:93:a1:9a:df:af":
             print("Received new data from", dev.addr)
 
-scanner = Scanner().withDelegate(ScanDelegate())
-devices = scanner.scan(10.0)
 
 while True:
+    scanner = Scanner().withDelegate(ScanDelegate())
+    devices = scanner.scan(10.0)
+
     for dev in devices:
         if dev.addr == "f9:93:a1:9a:df:af":
             print("Device %s (%s), RSSI=%d dB" % (dev.addr, dev.addrType, dev.rssi))
             for (adtype, desc, value) in dev.getScanData():
                 print("  %s = %s" % (desc, value))
+            sleep(4)
         else:
             print("BLE device not on our list!")
+    sleep(10)
             
 
 
