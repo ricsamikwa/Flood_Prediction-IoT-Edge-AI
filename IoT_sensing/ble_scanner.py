@@ -40,7 +40,7 @@ def dataLoop(nanoBLEs):
         c = s.getCharacteristics()[0]
         rainfall = c.read()
         p.disconnect()
-        print("Rainfall Amount: ", rainfall)
+        print("Rainfall Amount: ", int.from_bytes(rainfall, byteorder='big'))
         sleep(4)
 
 if __name__ == '__main__':
