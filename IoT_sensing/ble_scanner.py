@@ -13,7 +13,7 @@ class ScanDelegate(DefaultDelegate):
 
 
 while True:
-    scanner = Scanner().withDelegate(ScanDelegate())
+    scanner = Scanner()
     devices = scanner.scan(10.0)
 
     for dev in devices:
@@ -23,7 +23,7 @@ while True:
                 print("  %s = %s" % (desc, value))
             sleep(4)
         else:
-            print("BLE device not on our list!")
+            print("Discovered device", dev.addr, " unknown!")
     sleep(10)
             
 
