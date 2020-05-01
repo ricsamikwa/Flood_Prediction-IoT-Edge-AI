@@ -1,4 +1,5 @@
 from bluepy.btle import Scanner, DefaultDelegate
+import bluepy.btle as btle
 from time import sleep
 
 def getArduinoNanoBLEBoards():
@@ -32,8 +33,14 @@ def getArduinoNanoBLEBoards():
 def dataLoop(nanoBLEs):
     for nanoBle in nanoBLEs:
         print("Device %s (%s), RSSI=%d dB" % (nanoBle.addr, nanoBle.addrType, nanoBle.rssi))
-        # for (adtype, desc, value) in dev.getScanData():
-        #             print("  %s = %s" % (desc, value))
+ 
+        p = btle.Peripheral(nanoBle.addr)
+        services=p.getServices()
+        s = p.getServiceByUUID("19B10011-E8F2-537E-4F6C-D104768A1214")
+        c = s.getCharacteristics()[0]
+        rainfall = c.value()
+        p.disconnect()
+        print("Rainfall Amount: ", rainfall)
         sleep(4)
 
 if __name__ == '__main__':
