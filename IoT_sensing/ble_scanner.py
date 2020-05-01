@@ -11,7 +11,7 @@ def getArduinoNanoBLEBoards():
         for (adtype, desc, value) in scanData:
             if desc == 'Complete Local Name':
                 if 'Nano BLE' in value:
-#                    deviceId = int(value.split('#')[-1])
+                    print("####  %s = %s" % (desc, value))
                     nanoBLE.append(dev)
 
     return nanoBLE
