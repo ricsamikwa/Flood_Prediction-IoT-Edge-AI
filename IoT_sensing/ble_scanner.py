@@ -36,9 +36,9 @@ def dataLoop(nanoBLEs):
  
         p = btle.Peripheral(nanoBle.addr)
         services=p.getServices()
-        s = p.getServiceByUUID("19B10011-E8F2-537E-4F6C-D104768A1214")
+        s = p.getServiceByUUID(list(services)[2].uuid)
         c = s.getCharacteristics()[0]
-        rainfall = c.value()
+        rainfall = c.read()
         p.disconnect()
         print("Rainfall Amount: ", rainfall)
         sleep(4)
