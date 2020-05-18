@@ -54,7 +54,7 @@ def dataLoop(nanoBLEs):
         PARAMS = {'api_key':API_KEY,'field1':rainfall_amount}
         r = requests.get(url = URL, params = PARAMS)
         if  rainfall_amount > 50:
-            twitter_PARAMS = {'api_key':twitter_API_KEY,'status':rainfall_amount}
+            twitter_PARAMS = {'api_key':twitter_API_KEY,'status':"Flood Alert: Evacuate the area"}
             r2 = requests.post(url = twitter_URL, params = twitter_PARAMS) 
     
         print("Rainfall Amount: ", rainfall_amount)
