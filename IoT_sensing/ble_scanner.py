@@ -47,9 +47,9 @@ def dataLoop(nanoBLEs):
         c = s.getCharacteristics()[0]
         rainfall = c.read()
         p.disconnect()
-	rainfall_amount = int.from_bytes(rainfall,byteorder='big')
-	PARAMS = {'api_key':API_KEY,field1:rainfall_amount}
-	r = requests.get(url = URL, params = PARAMS) 
+        rainfall_amount = int.from_bytes(rainfall,byteorder='big')
+        PARAMS = {'api_key':API_KEY,'field1':rainfall_amount}
+        r = requests.get(url = URL, params = PARAMS) 
         print("Rainfall Amount: ", rainfall_amount)
         sleep(4)
 
