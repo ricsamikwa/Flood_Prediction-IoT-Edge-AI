@@ -2,6 +2,13 @@ from bluepy.btle import Scanner, DefaultDelegate
 import bluepy.btle as btle
 from time import sleep
 
+#thingspeak
+# importing the requests library 
+import requests   
+# api-endpoint api_key
+URL = "https://api.thingspeak.com/update"
+API_KEY = "730IO8XA7B1UH9VV"
+
 def getArduinoNanoBLEBoards():
     nanoBLE = []
     scanner = Scanner(0)
@@ -40,7 +47,10 @@ def dataLoop(nanoBLEs):
         c = s.getCharacteristics()[0]
         rainfall = c.read()
         p.disconnect()
-        print("Rainfall Amount: ", int.from_bytes(rainfall, byteorder='big'))
+	rainfall_amount = int.from_bytes(rainfall,byteorder='big')
+	PARAMS = {'api_key':API_KEY,field1:rainfall_amount}
+	r = requests.get(url = URL, params = PARAMS) 
+        print("Rainfall Amount: ", rainfall_amount)
         sleep(4)
 
 if __name__ == '__main__':
