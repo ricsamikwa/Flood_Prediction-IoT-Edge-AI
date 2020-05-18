@@ -8,6 +8,9 @@ import requests
 # api-endpoint api_key
 URL = "https://api.thingspeak.com/update"
 API_KEY = "730IO8XA7B1UH9VV"
+twitter_URL = "https://api.thingspeak.com/apps/thingtweet/1/statuses/update"
+twitter_API_KEY = "RJAWEKE6OTV47N21"
+
 
 def getArduinoNanoBLEBoards():
     nanoBLE = []
@@ -49,7 +52,11 @@ def dataLoop(nanoBLEs):
         p.disconnect()
         rainfall_amount = int.from_bytes(rainfall,byteorder='big')
         PARAMS = {'api_key':API_KEY,'field1':rainfall_amount}
-        r = requests.get(url = URL, params = PARAMS) 
+        r = requests.get(url = URL, params = PARAMS)
+        if  rainfall_amount > 50:
+            twitter_PARAMS = {'api_key':twitter_API_KEY,'status':rainfall_amount}
+            r2 = requests.post(url = twitter_URL, params = twitter_PARAMS) 
+    
         print("Rainfall Amount: ", rainfall_amount)
         sleep(4)
 
