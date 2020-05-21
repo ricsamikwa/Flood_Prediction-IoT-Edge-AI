@@ -95,12 +95,15 @@ void loop() {
 
   time_taken = newPulseIn(echo_pin, HIGH);
   
-  distance = (time_taken * 0.034) / 2;
+  float level = (((time_taken * 0.034) / 2)/340) * 100;
+
+  int water_level = (int) level;
+  Serial.print("");  
   Serial.print("Water Level:");  
-  Serial.println(distance);
+  Serial.println(water_level);
 
   //writing values to BLE channel
-  waterLevelCharacteristic.writeValue(distance);
+  waterLevelCharacteristic.writeValue(water_level);
   rainfallCharacteristic.writeValue(rainfall);  
   delay(200); 
 }
