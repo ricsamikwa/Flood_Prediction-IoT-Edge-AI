@@ -5,7 +5,7 @@ BLEService ledService("19B10000-E8F2-537E-4F6C-D104768A1214"); // BLE LED Servic
 // create characteristics and allow remote device to read and write  
 BLEByteCharacteristic rainfallCharacteristic("19B10011-E8F2-537E-4F6C-D104768A1214", BLERead | BLEWrite);
 
-BLEFloatCharacteristic waterLevelCharacteristic("2713", BLERead | BLEWrite );
+BLEByteCharacteristic waterLevelCharacteristic("2713", BLERead | BLEWrite );
 
 const int ledPin = LED_BUILTIN; // pin to use for the LED
 

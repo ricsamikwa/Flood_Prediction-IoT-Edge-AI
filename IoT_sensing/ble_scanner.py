@@ -52,10 +52,10 @@ def dataLoop(nanoBLEs):
         rainfall_characteristic = s.getCharacteristics()[0]
         water_level_characteristic = s.getCharacteristics()[1]
         rainfall = rainfall_characteristic.read()
-        water_level = water_level_characteristic.read()
+        water = water_level_characteristic.read()
         p.disconnect()
         rainfall_amount = int.from_bytes(rainfall,byteorder='big')
-        # water_level = int.from_bytes(water,byteorder='big')
+        water_level = int.from_bytes(water,byteorder='big')
 
 
         # PARAMS = {'api_key':ThingSpeak_API_KEY,'field1':rainfall_amount}
