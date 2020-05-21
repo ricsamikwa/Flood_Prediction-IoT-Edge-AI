@@ -2,8 +2,11 @@
 
 BLEService ledService("19B10000-E8F2-537E-4F6C-D104768A1214"); // BLE LED Service
 
-// create switch characteristic and allow remote device to read and write  
-BLEByteCharacteristic ledCharacteristic("19B10011-E8F2-537E-4F6C-D104768A1214", BLERead | BLEWrite);    
+// create characteristics and allow remote device to read and write  
+BLEByteCharacteristic rainfallCharacteristic("19B10011-E8F2-537E-4F6C-D104768A1214", BLERead | BLEWrite);
+
+BLEFloatCharacteristic waterLevelCharacteristic("2713", BLERead | BLEWrite );
+
 const int ledPin = LED_BUILTIN; // pin to use for the LED
 
 //parameters for water level sensor
@@ -52,13 +55,16 @@ void setup() {
   BLE.setAdvertisedService(ledService);
 
   // add the characteristic to the service
-  ledService.addCharacteristic(ledCharacteristic);
+  ledService.addCharacteristic(rainfallCharacteristic);
+  ledService.addCharacteristic(waterLevelCharacteristic);
+
 
   // add service
   BLE.addService(ledService);
 
-  // set the initial value for the characeristic:
-  ledCharacteristic.writeValue(0);  
+  // set the initial value for the characeristics:
+  waterLevelCharacteristic.writeValue(0.0);
+  rainfallCharacteristic.writeValue(0);  
 
   // start advertising
   BLE.advertise();
@@ -74,6 +80,7 @@ void loop() {
   // poll for BLE events  
   BLE.poll();
 
+  //getting sensor data
   float rainsensor_value = ((analogRead(0))/950.0)*110;
 
   int rainfall = (int) rainsensor_value;
@@ -92,6 +99,8 @@ void loop() {
   Serial.print("Water Level:");  
   Serial.println(distance);
 
-  ledCharacteristic.writeValue(rainfall);  
+  //writing values to BLE channel
+  waterLevelCharacteristic.writeValue(distance);
+  rainfallCharacteristic.writeValue(rainfall);  
   delay(200); 
 }

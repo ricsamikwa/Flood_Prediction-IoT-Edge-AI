@@ -6,10 +6,10 @@ from time import sleep
 # importing the requests library 
 import requests   
 # api-endpoint api_key
-URL = "https://api.thingspeak.com/update"
-API_KEY = "730IO8XA7B1UH9VV"
-twitter_URL = "https://api.thingspeak.com/apps/thingtweet/1/statuses/update"
-twitter_API_KEY = "RJAWEKE6OTV47N21"
+ThingSpeak_URL = "https://api.thingspeak.com/update"
+ThingSpeak_API_KEY = "730IO8XA7B1UH9VV"
+ThingTweet_URL = "https://api.thingspeak.com/apps/thingtweet/1/statuses/update"
+ThingTweet_API_KEY = "RJAWEKE6OTV47N21"
 
 
 def getArduinoNanoBLEBoards():
@@ -47,17 +47,27 @@ def dataLoop(nanoBLEs):
         p = btle.Peripheral(nanoBle.addr)
         services=p.getServices()
         s = p.getServiceByUUID(list(services)[2].uuid)
-        c = s.getCharacteristics()[0]
-        rainfall = c.read()
+        # c = s.getCharacteristics()[0]
+        # rainfall = c.read()
+        rainfall_characteristic = s.getCharacteristics()[0]
+        water_level_characteristic = s.getCharacteristics()[1]
+        rainfall = rainfall_characteristic.read()
+        water_level = water_level_characteristic.read()
         p.disconnect()
         rainfall_amount = int.from_bytes(rainfall,byteorder='big')
-        PARAMS = {'api_key':API_KEY,'field1':rainfall_amount}
-        r = requests.get(url = URL, params = PARAMS)
-        if  rainfall_amount > 50:
-            twitter_PARAMS = {'api_key':twitter_API_KEY,'status':"Flood Alert: Evacuate the area"}
-            r2 = requests.post(url = twitter_URL, params = twitter_PARAMS) 
-    
+        # water_level = int.from_bytes(water,byteorder='big')
+
+
+        # PARAMS = {'api_key':ThingSpeak_API_KEY,'field1':rainfall_amount}
+        # r = requests.get(url = ThingSpeak_URL, params = PARAMS)
+        # if  rainfall_amount > 50:
+        #     twitter_PARAMS = {'api_key':ThingTweet_API_KEY,'status':"Flood Alert: Move to ANOTHER PLACE..!!"}
+        #     r2 = requests.post(url = ThingTweet_URL, params = twitter_PARAMS) 
+
+        
         print("Rainfall Amount: ", rainfall_amount)
+        print("")
+        print("Water Level :", water_level)
         sleep(4)
 
 if __name__ == '__main__':
