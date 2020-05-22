@@ -7,6 +7,15 @@ from time import sleep
 from bluepy.btle import *
 from IoT_sensing.ble_scanner import *
 
+#thingspeak
+# importing the requests library 
+import requests   
+# api-endpoint api_key
+ThingSpeak_URL = "https://api.thingspeak.com/update"
+ThingSpeak_API_KEY = "730IO8XA7B1UH9VV"
+ThingTweet_URL = "https://api.thingspeak.com/apps/thingtweet/1/statuses/update"
+ThingTweet_API_KEY = "RJAWEKE6OTV47N21"
+
 #sensor data arrays
 rainfall_array = []
 water_level_array= []
@@ -66,11 +75,18 @@ def getCurrentSensorData():
         rainfall_amount = result["rainfall"]
         level_amount = result["level"]
 
+        #Print values
         print('\nRainfall : %.3f mm' %(rainfall_amount))
         print('Water Level : %.3f m\n' %(result["level"]))
 
+        #add to array
         rainfall_array.append(rainfall_amount/110.0)
         water_level_array.append(level_amount/3.3)
+
+        #plot in thingspeak
+        PARAMS = {'api_key':ThingSpeak_API_KEY,'field1':rainfall_amount}
+        PARAMS = {'api_key':ThingSpeak_API_KEY,'field2':level_amount}
+        requests.get(url = ThingSpeak_URL, params = PARAMS)
 
 def getSensorDataSequence():
     sleep(1)
@@ -144,6 +160,10 @@ if __name__ == '__main__':
             if (inv_predicted_waterlevel > 1.5):
                 print("FLOOD")
                 print("================>Issue Alert==============>")
+                # if  rainfall_amount > 50 and water_level_float > 1.5:
+                twitter_PARAMS = {'api_key':ThingTweet_API_KEY,'status':"Flood Alert: Move to ANOTHER PLACE..!!"}
+                requests.post(url = ThingTweet_URL, params = twitter_PARAMS) 
+
             else:
                 print("No FLOOD")
 

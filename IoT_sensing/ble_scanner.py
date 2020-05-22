@@ -2,16 +2,6 @@ from bluepy.btle import Scanner, DefaultDelegate
 import bluepy.btle as btle
 from time import sleep
 
-#thingspeak
-# importing the requests library 
-import requests   
-# api-endpoint api_key
-ThingSpeak_URL = "https://api.thingspeak.com/update"
-ThingSpeak_API_KEY = "730IO8XA7B1UH9VV"
-ThingTweet_URL = "https://api.thingspeak.com/apps/thingtweet/1/statuses/update"
-ThingTweet_API_KEY = "RJAWEKE6OTV47N21"
-
-
 def getArduinoNanoBLEBoards():
     nanoBLE = []
     scanner = Scanner(0)
@@ -59,13 +49,6 @@ def dataLoop(nanoBLEs):
 
         water_level_float = (water_level/100)*3.3
 
-        # PARAMS = {'api_key':ThingSpeak_API_KEY,'field1':rainfall_amount}
-        # PARAMS = {'api_key':ThingSpeak_API_KEY,'field2':water_level_float}
-
-        # r = requests.get(url = ThingSpeak_URL, params = PARAMS)
-        # if  rainfall_amount > 50 and water_level_float > 1.5:
-        #     twitter_PARAMS = {'api_key':ThingTweet_API_KEY,'status':"Flood Alert: Move to ANOTHER PLACE..!!"}
-        #     r2 = requests.post(url = ThingTweet_URL, params = twitter_PARAMS) 
         result = {"level": water_level_float,"rainfall":rainfall_amount}
         return result
         # print("Rainfall Amount: ", rainfall_amount)
