@@ -1,0 +1,324 @@
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+lstm_7 (LSTM)                (None, 30)                3960      
+_________________________________________________________________
+dense_7 (Dense)              (None, 1)                 31        
+=================================================================
+Total params: 3,991
+Trainable params: 3,991
+Non-trainable params: 0
+_________________________________________________________________
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-90 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.264 m
+
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-78 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.264 m
+
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-85 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.264 m
+
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-78 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.264 m
+
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-80 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.264 m
+
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-75 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.264 m
+
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-78 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.396 m
+
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-87 dB
+
+Rainfall : 0.000 mm
+Water Level : 3.267 m
+
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-97 dB
+
+Rainfall : 0.000 mm
+Water Level : 3.267 m
+
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-83 dB
+
+Rainfall : 0.000 mm
+Water Level : 3.267 m
+
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-77 dB
+
+Rainfall : 0.000 mm
+Water Level : 3.267 m
+
+
+=========>
+Processing data for forecasting at time :  1
+
+Dataframe with scaled values (required input for LSTM)
+    rainfall (mm)  Level (m)
+0             0.0       0.08
+1             0.0       0.08
+2             0.0       0.08
+3             0.0       0.08
+4             0.0       0.08
+5             0.0       0.08
+6             0.0       0.12
+7             0.0       0.99
+8             0.0       0.99
+9             0.0       0.99
+10            0.0       0.99
+(11, 2)
+(1, 20)
+==========>Forecasting
+Expected water level in 10 hours (t + 10) is 2.573 m
+-------------Flood possibility----------------
+FLOOD
+================>Issue Alert==============>
+Sleep
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-78 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.099 m
+
+
+=========>
+Processing data for forecasting at time :  2
+
+Dataframe with scaled values (required input for LSTM)
+    rainfall (mm)  Level (m)
+0             0.0       0.08
+1             0.0       0.08
+2             0.0       0.08
+3             0.0       0.08
+4             0.0       0.08
+5             0.0       0.12
+6             0.0       0.99
+7             0.0       0.99
+8             0.0       0.99
+9             0.0       0.99
+10            0.0       0.03
+(11, 2)
+(1, 20)
+==========>Forecasting
+Expected water level in 10 hours (t + 10) is 2.674 m
+-------------Flood possibility----------------
+FLOOD
+================>Issue Alert==============>
+Sleep
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-84 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.099 m
+
+
+=========>
+Processing data for forecasting at time :  3
+
+Dataframe with scaled values (required input for LSTM)
+    rainfall (mm)  Level (m)
+0             0.0       0.08
+1             0.0       0.08
+2             0.0       0.08
+3             0.0       0.08
+4             0.0       0.12
+5             0.0       0.99
+6             0.0       0.99
+7             0.0       0.99
+8             0.0       0.99
+9             0.0       0.03
+10            0.0       0.03
+(11, 2)
+(1, 20)
+==========>Forecasting
+Expected water level in 10 hours (t + 10) is 1.991 m
+-------------Flood possibility----------------
+FLOOD
+================>Issue Alert==============>
+Sleep
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-85 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.033 m
+
+
+=========>
+Processing data for forecasting at time :  4
+
+Dataframe with scaled values (required input for LSTM)
+    rainfall (mm)  Level (m)
+0             0.0       0.08
+1             0.0       0.08
+2             0.0       0.08
+3             0.0       0.12
+4             0.0       0.99
+5             0.0       0.99
+6             0.0       0.99
+7             0.0       0.99
+8             0.0       0.03
+9             0.0       0.03
+10            0.0       0.01
+(11, 2)
+(1, 20)
+==========>Forecasting
+Expected water level in 10 hours (t + 10) is 1.756 m
+-------------Flood possibility----------------
+FLOOD
+================>Issue Alert==============>
+Sleep
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-82 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.033 m
+
+
+=========>
+Processing data for forecasting at time :  5
+
+Dataframe with scaled values (required input for LSTM)
+    rainfall (mm)  Level (m)
+0             0.0       0.08
+1             0.0       0.08
+2             0.0       0.12
+3             0.0       0.99
+4             0.0       0.99
+5             0.0       0.99
+6             0.0       0.99
+7             0.0       0.03
+8             0.0       0.03
+9             0.0       0.01
+10            0.0       0.01
+(11, 2)
+(1, 20)
+==========>Forecasting
+Expected water level in 10 hours (t + 10) is 1.574 m
+-------------Flood possibility----------------
+FLOOD
+================>Issue Alert==============>
+Sleep
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-78 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.066 m
+
+
+=========>
+Processing data for forecasting at time :  6
+
+Dataframe with scaled values (required input for LSTM)
+    rainfall (mm)  Level (m)
+0             0.0       0.08
+1             0.0       0.12
+2             0.0       0.99
+3             0.0       0.99
+4             0.0       0.99
+5             0.0       0.99
+6             0.0       0.03
+7             0.0       0.03
+8             0.0       0.01
+9             0.0       0.01
+10            0.0       0.02
+(11, 2)
+(1, 20)
+==========>Forecasting
+Expected water level in 10 hours (t + 10) is 1.452 m
+-------------Flood possibility----------------
+No FLOOD
+Sleep
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-80 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.066 m
+
+
+=========>
+Processing data for forecasting at time :  7
+
+Dataframe with scaled values (required input for LSTM)
+    rainfall (mm)  Level (m)
+0             0.0       0.12
+1             0.0       0.99
+2             0.0       0.99
+3             0.0       0.99
+4             0.0       0.99
+5             0.0       0.03
+6             0.0       0.03
+7             0.0       0.01
+8             0.0       0.01
+9             0.0       0.02
+10            0.0       0.02
+(11, 2)
+(1, 20)
+==========>Forecasting
+Expected water level in 10 hours (t + 10) is 1.375 m
+-------------Flood possibility----------------
+No FLOOD
+Sleep
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-82 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.066 m
+
+
+=========>
+Processing data for forecasting at time :  8
+
+Dataframe with scaled values (required input for LSTM)
+    rainfall (mm)  Level (m)
+0             0.0       0.99
+1             0.0       0.99
+2             0.0       0.99
+3             0.0       0.99
+4             0.0       0.03
+5             0.0       0.03
+6             0.0       0.01
+7             0.0       0.01
+8             0.0       0.02
+9             0.0       0.02
+10            0.0       0.02
+(11, 2)
+(1, 20)
+==========>Forecasting
+Expected water level in 10 hours (t + 10) is 1.326 m
+-------------Flood possibility----------------
+No FLOOD
+Sleep
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-82 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.066 m
+
+
+

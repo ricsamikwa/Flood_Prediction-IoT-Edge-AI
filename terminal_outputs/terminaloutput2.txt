@@ -1,0 +1,149 @@
+Model Loaded
+
+Model: "sequential_7"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+lstm_7 (LSTM)                (None, 30)                3960      
+_________________________________________________________________
+dense_7 (Dense)              (None, 1)                 31        
+=================================================================
+Total params: 3,991
+Trainable params: 3,991
+Non-trainable params: 0
+_________________________________________________________________
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-87 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.066 m
+
+Time to read sensor data over BLE : 4.84684944152832 seconds 
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-85 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.066 m
+
+Time to read sensor data over BLE : 5.390300273895264 seconds 
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-77 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.066 m
+
+Time to read sensor data over BLE : 4.805078983306885 seconds 
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-81 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.066 m
+
+Time to read sensor data over BLE : 4.854583501815796 seconds 
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-82 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.066 m
+
+Time to read sensor data over BLE : 5.0252768993377686 seconds 
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-74 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.066 m
+
+Time to read sensor data over BLE : 5.04800820350647 seconds 
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-86 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.066 m
+
+Time to read sensor data over BLE : 4.932227611541748 seconds 
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-86 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.066 m
+
+Time to read sensor data over BLE : 4.922088861465454 seconds 
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-85 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.066 m
+
+Time to read sensor data over BLE : 4.85045599937439 seconds 
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-78 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.066 m
+
+Time to read sensor data over BLE : 4.845073223114014 seconds 
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-89 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.066 m
+
+Time to read sensor data over BLE : 5.03799033164978 seconds 
+
+=========>
+Processing data for forecasting at time :  1
+
+Dataframe with scaled values (required input for LSTM)
+    rainfall (mm)  Level (m)
+0             0.0       0.02
+1             0.0       0.02
+2             0.0       0.02
+3             0.0       0.02
+4             0.0       0.02
+5             0.0       0.02
+6             0.0       0.02
+7             0.0       0.02
+8             0.0       0.02
+9             0.0       0.02
+10            0.0       0.02
+(11, 2)
+(1, 20)
+==========>Forecasting
+Expected water level in 10 hours (t + 10) is 1.213 m
+-------------Flood possibility----------------
+No FLOOD
+Sleep
+Time for data preprocessing and forecasting : 1.381911277770996 seconds 
+####  Complete Local Name = Nano BLE 01
+Device f9:93:a1:9a:df:af (public), RSSI=-76 dB
+
+Rainfall : 0.000 mm
+Water Level : 0.066 m
+
+Time to read sensor data over BLE : 5.08219051361084 seconds 
+
+=========>
+Processing data for forecasting at time :  2
+
+Dataframe with scaled values (required input for LSTM)
+    rainfall (mm)  Level (m)
+0             0.0       0.02
+1             0.0       0.02
+2             0.0       0.02
+3             0.0       0.02
+4             0.0       0.02
+5             0.0       0.02
+6             0.0       0.02
+7             0.0       0.02
+8             0.0       0.02
+9             0.0       0.02
+10            0.0       0.02
+(11, 2)
+(1, 20)
+==========>Forecasting
+Expected water level in 10 hours (t + 10) is 1.213 m
+-------------Flood possibility----------------
+No FLOOD
+Sleep
+Time for data preprocessing and forecasting : 1.1527495384216309 seconds 
+
