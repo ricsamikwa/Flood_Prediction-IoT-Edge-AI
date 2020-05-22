@@ -70,7 +70,7 @@ def dataLoop(nanoBLEs):
         
         print("Rainfall Amount: ", rainfall_amount)
         print("Water Level :", water_level_float)
-        sleep(4)
+        sleep(2)
 
 if __name__ == '__main__':
 

@@ -10,7 +10,11 @@ water_level_array= []
 # load trained LSTM model and print model summary
 def loadTrainedLSTMModel():
     print("\n===========STARTING=============")
-    model = load_model('./flood_prediction-LSTM/my_model.h5')
+    # model = load_model('./flood_prediction-LSTM/my_model.h5')
+
+    # 10 hours ahead of time forecast
+    model = load_model('./flood_prediction-LSTM/10_hours-my_model.h5')
+
     print("\nModel Loaded\n")
     model.summary()
     return model
