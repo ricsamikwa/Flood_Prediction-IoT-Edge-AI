@@ -2,6 +2,7 @@ from tensorflow.python.keras.models import load_model
 import pandas
 import random
 from time import sleep
+import time
 
 #nano BLE sense inports
 from bluepy.btle import *
@@ -11,10 +12,10 @@ from IoT_sensing.ble_scanner import *
 # importing the requests library 
 import requests   
 # api-endpoint api_key
-ThingSpeak_URL = "https://api.thingspeak.com/update"
-ThingSpeak_API_KEY = "730IO8XA7B1UH9VV"
-ThingTweet_URL = "https://api.thingspeak.com/apps/thingtweet/1/statuses/update"
-ThingTweet_API_KEY = "RJAWEKE6OTV47N21"
+# ThingSpeak_URL = "https://api.thingspeak.com/update"
+# ThingSpeak_API_KEY = "730IO8XA7B1UH9VV"
+# ThingTweet_URL = "https://api.thingspeak.com/apps/thingtweet/1/statuses/update"
+# ThingTweet_API_KEY = "RJAWEKE6OTV47N21"
 
 #sensor data arrays
 rainfall_array = []
@@ -83,10 +84,10 @@ def getCurrentSensorData():
         rainfall_array.append(rainfall_amount/110.0)
         water_level_array.append(level_amount/3.3)
 
-        #plot in thingspeak
-        PARAMS = {'api_key':ThingSpeak_API_KEY,'field1':rainfall_amount}
-        PARAMS = {'api_key':ThingSpeak_API_KEY,'field2':level_amount}
-        requests.get(url = ThingSpeak_URL, params = PARAMS)
+        # #plot in thingspeak
+        # PARAMS = {'api_key':ThingSpeak_API_KEY,'field1':rainfall_amount}
+        # PARAMS = {'api_key':ThingSpeak_API_KEY,'field2':level_amount}
+        # requests.get(url = ThingSpeak_URL, params = PARAMS)
 
 def getSensorDataSequence():
     sleep(1)
@@ -136,9 +137,12 @@ if __name__ == '__main__':
     model = loadTrainedLSTMModel()
 
     while True:
+        ble_start_time = time.time()
         getCurrentSensorData()
+        print("Time to read sensor data over BLE : %s seconds " % (time.time() - ble_start_time))
 
         if(len(rainfall_array) > 10):
+            forecast_start_time = time.time()
             #10 hours historical rainfall and water level data
             sensor_data_sequence_df = getSensorDataSequence()
 
@@ -160,14 +164,17 @@ if __name__ == '__main__':
             if (inv_predicted_waterlevel > 1.5):
                 print("FLOOD")
                 print("================>Issue Alert==============>")
-                # if  rainfall_amount > 50 and water_level_float > 1.5:
-                twitter_PARAMS = {'api_key':ThingTweet_API_KEY,'status':"Flood Alert: Move to ANOTHER PLACE..!!"}
-                requests.post(url = ThingTweet_URL, params = twitter_PARAMS) 
+                # # if  rainfall_amount > 50 and water_level_float > 1.5:
+                # twitter_PARAMS = {'api_key':ThingTweet_API_KEY,'status':"Flood Alert: Move to ANOTHER PLACE..!!"}
+                # requests.post(url = ThingTweet_URL, params = twitter_PARAMS) 
 
             else:
                 print("No FLOOD")
 
             print("Sleep")
             pred_num = pred_num + 1
+
+            print("Time for data preprocessing and forecasting : %s seconds " % (time.time() - forecast_start_time))
+
             sleep(2)
         sleep(2)
