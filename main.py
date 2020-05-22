@@ -3,6 +3,10 @@ import pandas
 import random
 from time import sleep
 
+#nano BLE sense inports
+from bluepy.btle import *
+from IoT_sensing.ble_scanner import *
+
 #sensor data arrays
 rainfall_array = []
 water_level_array= []
@@ -50,14 +54,23 @@ def create_multivariate_LSTM_form(sensor_data_sequence, num_past_hours=1, num_pr
 	return combined_data
 
 def getCurrentSensorData():
-    current_rainfall_scaled = random.random()
-    current_water_level_scaled = random.random()
-    
-    print('\nRainfall : %.3f mm' %(current_rainfall_scaled*111.4))
-    print('Water Level : %.3f m\n' %(current_water_level_scaled*3.3))
+    # current_rainfall_scaled = random.random()
+    # current_water_level_scaled = random.random()
 
-    rainfall_array.append(current_rainfall_scaled)
-    water_level_array.append(current_water_level_scaled)
+    nanoBLEs = getArduinoNanoBLEBoards()
+    if len(nanoBLEs) == 0:
+        print("No arduino nano BLE devices found!")
+    else:
+        result = dataLoop(nanoBLEs)
+
+        rainfall_amount = result["rainfall"]
+        level_amount = result["level"]
+
+        print('\nRainfall : %.3f mm' %(rainfall_amount))
+        print('Water Level : %.3f m\n' %(result["level"]))
+
+        rainfall_array.append(rainfall_amount/110.0)
+        water_level_array.append(level_amount/3.3)
 
 def getSensorDataSequence():
     sleep(1)

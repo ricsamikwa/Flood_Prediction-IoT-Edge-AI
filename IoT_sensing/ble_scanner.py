@@ -59,18 +59,18 @@ def dataLoop(nanoBLEs):
 
         water_level_float = (water_level/100)*3.3
 
-        PARAMS = {'api_key':ThingSpeak_API_KEY,'field1':rainfall_amount}
-        PARAMS = {'api_key':ThingSpeak_API_KEY,'field2':water_level_float}
+        # PARAMS = {'api_key':ThingSpeak_API_KEY,'field1':rainfall_amount}
+        # PARAMS = {'api_key':ThingSpeak_API_KEY,'field2':water_level_float}
 
-        r = requests.get(url = ThingSpeak_URL, params = PARAMS)
-        if  rainfall_amount > 50 and water_level_float > 1.5:
-            twitter_PARAMS = {'api_key':ThingTweet_API_KEY,'status':"Flood Alert: Move to ANOTHER PLACE..!!"}
-            r2 = requests.post(url = ThingTweet_URL, params = twitter_PARAMS) 
-
-        
-        print("Rainfall Amount: ", rainfall_amount)
-        print("Water Level :", water_level_float)
-        sleep(2)
+        # r = requests.get(url = ThingSpeak_URL, params = PARAMS)
+        # if  rainfall_amount > 50 and water_level_float > 1.5:
+        #     twitter_PARAMS = {'api_key':ThingTweet_API_KEY,'status':"Flood Alert: Move to ANOTHER PLACE..!!"}
+        #     r2 = requests.post(url = ThingTweet_URL, params = twitter_PARAMS) 
+        result = {"level": water_level_float,"rainfall":rainfall_amount}
+        return result
+        # print("Rainfall Amount: ", rainfall_amount)
+        # print("Water Level :", water_level_float)
+        # sleep(2)
 
 if __name__ == '__main__':
 
