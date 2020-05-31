@@ -20,7 +20,7 @@ ThingTweet_API_KEY = "RJAWEKE6OTV47N21"
 rainfall_array = []
 water_level_array= []
 current_rainfall = 0
-current_water_level = 0
+current_water_level = 0.0
 
 # load trained LSTM model and print model summary
 def loadTrainedLSTMModel():
@@ -79,10 +79,16 @@ def getCurrentSensorData():
 
         #Print values
         print('\nRainfall : %.3f mm' %(rainfall_amount))
-        print('Water Level : %.3f m\n' %(result["level"]))
+        print('Water Level : %.3f m\n' %(level_amount))
 
+        
         current_rainfall = rainfall_amount
         current_water_level = level_amount
+
+        #Print values
+        print('\nRainfall : %.3f mm' %(current_rainfall))
+        print('Water Level : %.3f m\n' %(current_water_level))
+
         #add to array
         rainfall_array.append(rainfall_amount/110.0)
         water_level_array.append(level_amount/3.3)
