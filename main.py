@@ -23,10 +23,10 @@ water_level_array= []
 # load trained LSTM model and print model summary
 def loadTrainedLSTMModel():
     print("\n===========STARTING=============")
-    # model = load_model('./flood_prediction-LSTM/my_model.h5')
+    model = load_model('./flood_prediction-LSTM/my_model.h5')
 
-    # 10 hours ahead of time forecast
-    model = load_model('./flood_prediction-LSTM/10_hours-my_model.h5')
+    # # 10 hours ahead of time forecast
+    # model = load_model('./flood_prediction-LSTM/10_hours-my_model.h5')
 
     print("\nModel Loaded\n")
     model.summary()
@@ -158,6 +158,8 @@ if __name__ == '__main__':
             print("-------------Flood possibility----------------")
             #based on the dataset it is likely to flood when predicted water level exceeds 1.5 m
             if (inv_predicted_waterlevel > 1.5):
+                flood_stattus_PARAMS = {'api_key':ThingSpeak_API_KEY,'field2':1}
+
                 print("FLOOD")
                 print("================>Issue Alert==============>")
                 # if  rainfall_amount > 50 and water_level_float > 1.5:
@@ -165,7 +167,11 @@ if __name__ == '__main__':
                 requests.post(url = ThingTweet_URL, params = twitter_PARAMS) 
 
             else:
+                flood_stattus_PARAMS = {'api_key':ThingSpeak_API_KEY,'field3':0}
+
                 print("No FLOOD")
+
+            requests.get(url = ThingSpeak_URL, params = flood_stattus_PARAMS)
 
             print("Sleep")
             pred_num = pred_num + 1
