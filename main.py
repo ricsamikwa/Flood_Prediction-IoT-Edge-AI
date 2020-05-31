@@ -79,12 +79,8 @@ def getCurrentSensorData():
         print('\nRainfall : %.3f mm' %(rainfall_amount))
         print('Water Level : %.3f m\n' %(level_amount))
 
-        
-        current_rainfall = rainfall_amount
-        current_water_level = level_amount
-
         #plot in thingspeak
-        PARAMS = {'api_key':ThingSpeak_API_KEY,'field1':current_rainfall,'field2':current_water_level,'field3':flood_status}
+        PARAMS = {'api_key':ThingSpeak_API_KEY,'field1':rainfall_amount,'field2':level_amount,'field3':flood_status}
         requests.get(url = ThingSpeak_URL, params = PARAMS)
         # #Print values
         # print('\nRainfall : %.3f mm' %(current_rainfall))
@@ -137,8 +133,6 @@ def dataPreprosessing(sensor_data_sequence_df):
 #prediction num
 pred_num = 0
 flood_status = 0
-current_rainfall = 0
-current_water_level = 0.0
 
 if __name__ == '__main__':
     
@@ -169,7 +163,6 @@ if __name__ == '__main__':
             #based on the dataset it is likely to flood when predicted water level exceeds 1.5 m
             if (inv_predicted_waterlevel > 1.5):
                 flood_status = 1
-
                 print("FLOOD")
                 print("================>Issue Alert==============>")
                 # if  rainfall_amount > 50 and water_level_float > 1.5:
@@ -178,7 +171,6 @@ if __name__ == '__main__':
 
             else:
                 flood_status = 0
-
                 print("No FLOOD")
 
             
