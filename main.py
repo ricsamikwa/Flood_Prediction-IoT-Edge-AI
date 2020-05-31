@@ -19,8 +19,6 @@ ThingTweet_API_KEY = "RJAWEKE6OTV47N21"
 #sensor data arrays
 rainfall_array = []
 water_level_array= []
-current_rainfall = 0
-current_water_level = 0.0
 
 # load trained LSTM model and print model summary
 def loadTrainedLSTMModel():
@@ -85,9 +83,12 @@ def getCurrentSensorData():
         current_rainfall = rainfall_amount
         current_water_level = level_amount
 
-        #Print values
-        print('\nRainfall : %.3f mm' %(current_rainfall))
-        print('Water Level : %.3f m\n' %(current_water_level))
+        #plot in thingspeak
+        PARAMS = {'api_key':ThingSpeak_API_KEY,'field1':current_rainfall,'field2':current_water_level,'field3':flood_status}
+        requests.get(url = ThingSpeak_URL, params = PARAMS)
+        # #Print values
+        # print('\nRainfall : %.3f mm' %(current_rainfall))
+        # print('Water Level : %.3f m\n' %(current_water_level))
 
         #add to array
         rainfall_array.append(rainfall_amount/110.0)
@@ -136,6 +137,9 @@ def dataPreprosessing(sensor_data_sequence_df):
 #prediction num
 pred_num = 0
 flood_status = 0
+current_rainfall = 0
+current_water_level = 0.0
+
 if __name__ == '__main__':
     
     #load model once
@@ -143,7 +147,7 @@ if __name__ == '__main__':
 
     while True:
         getCurrentSensorData()
-        print("current_rainfall: %.3f m current_water_level: %.3f m flood_status: %.3f m ",current_rainfall, current_water_level, flood_status)
+        # print("current_rainfall: %.3f m current_water_level: %.3f m flood_status: %.3f m ",current_rainfall, current_water_level, flood_status)
         if(len(rainfall_array) > 10):
             #10 hours historical rainfall and water level data
             sensor_data_sequence_df = getSensorDataSequence()
@@ -177,11 +181,9 @@ if __name__ == '__main__':
 
                 print("No FLOOD")
 
-            #plot in thingspeak
-            PARAMS = {'api_key':ThingSpeak_API_KEY,'field1':current_rainfall,'field2':current_water_level,'field3':flood_status}
-            requests.get(url = ThingSpeak_URL, params = PARAMS)
+            
 
             print("Sleep")
             pred_num = pred_num + 1
-            sleep(1)
+            sleep(2)
         sleep(2)
