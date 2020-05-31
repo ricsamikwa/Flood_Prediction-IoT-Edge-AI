@@ -19,9 +19,8 @@ ThingTweet_API_KEY = "RJAWEKE6OTV47N21"
 #sensor data arrays
 rainfall_array = []
 water_level_array= []
-current_rainfall = 0.0
-current_water_level = 0.0
-flood_status = 0
+current_rainfall = 0
+current_water_level = 0
 
 # load trained LSTM model and print model summary
 def loadTrainedLSTMModel():
@@ -130,7 +129,7 @@ def dataPreprosessing(sensor_data_sequence_df):
 
 #prediction num
 pred_num = 0
-
+flood_status = 0
 if __name__ == '__main__':
     
     #load model once
