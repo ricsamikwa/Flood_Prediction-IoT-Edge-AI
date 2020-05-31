@@ -19,6 +19,9 @@ ThingTweet_API_KEY = "RJAWEKE6OTV47N21"
 #sensor data arrays
 rainfall_array = []
 water_level_array= []
+current_rainfall = 0.0
+current_water_level = 0.0
+flood_status = 0
 
 # load trained LSTM model and print model summary
 def loadTrainedLSTMModel():
@@ -79,14 +82,12 @@ def getCurrentSensorData():
         print('\nRainfall : %.3f mm' %(rainfall_amount))
         print('Water Level : %.3f m\n' %(result["level"]))
 
+        current_rainfall = rainfall_amount
+        current_water_level = level_amount
         #add to array
         rainfall_array.append(rainfall_amount/110.0)
         water_level_array.append(level_amount/3.3)
 
-        #plot in thingspeak
-        PARAMS = {'api_key':ThingSpeak_API_KEY,'field1':rainfall_amount}
-        PARAMS = {'api_key':ThingSpeak_API_KEY,'field2':level_amount}
-        requests.get(url = ThingSpeak_URL, params = PARAMS)
 
 def getSensorDataSequence():
     sleep(1)
@@ -158,7 +159,7 @@ if __name__ == '__main__':
             print("-------------Flood possibility----------------")
             #based on the dataset it is likely to flood when predicted water level exceeds 1.5 m
             if (inv_predicted_waterlevel > 1.5):
-                flood_stattus_PARAMS = {'api_key':ThingSpeak_API_KEY,'field2':1}
+                flood_status = 1
 
                 print("FLOOD")
                 print("================>Issue Alert==============>")
@@ -167,11 +168,14 @@ if __name__ == '__main__':
                 requests.post(url = ThingTweet_URL, params = twitter_PARAMS) 
 
             else:
-                flood_stattus_PARAMS = {'api_key':ThingSpeak_API_KEY,'field3':0}
+                flood_status = 0
 
                 print("No FLOOD")
 
-            requests.get(url = ThingSpeak_URL, params = flood_stattus_PARAMS)
+
+            #plot in thingspeak
+            PARAMS = {'api_key':ThingSpeak_API_KEY,'field1':current_rainfall,'field2':current_water_level,'field3':flood_status}
+            requests.get(url = ThingSpeak_URL, params = PARAMS)
 
             print("Sleep")
             pred_num = pred_num + 1
