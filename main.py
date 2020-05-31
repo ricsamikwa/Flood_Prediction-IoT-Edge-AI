@@ -138,7 +138,7 @@ if __name__ == '__main__':
 
     while True:
         getCurrentSensorData()
-
+        print("current_rainfall: %.3f m current_water_level: %.3f m flood_status: %.3f m ",current_rainfall, current_water_level, flood_status)
         if(len(rainfall_array) > 10):
             #10 hours historical rainfall and water level data
             sensor_data_sequence_df = getSensorDataSequence()
@@ -172,12 +172,11 @@ if __name__ == '__main__':
 
                 print("No FLOOD")
 
-
             #plot in thingspeak
             PARAMS = {'api_key':ThingSpeak_API_KEY,'field1':current_rainfall,'field2':current_water_level,'field3':flood_status}
             requests.get(url = ThingSpeak_URL, params = PARAMS)
 
             print("Sleep")
             pred_num = pred_num + 1
-            sleep(2)
+            sleep(1)
         sleep(2)
