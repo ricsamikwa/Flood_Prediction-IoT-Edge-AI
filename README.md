@@ -1,1 +1,3 @@
-# IoT-Edge-AI-Flood-Early-Warning-System
+# IoT-Edge-AI Flood Early Warning System
+
+Author: Eric Samikwa
