@@ -12,10 +12,10 @@ Once running:
 + See generated flood eary warning messages on twitter: @EdgeFloodPredi1
 
 + Devices:
-+ Raspberry 3B+
++ Raspberry
 + Arduino nano 33 BLE(s)
 + Water level sensor(s)
-+ Octopus Rain sensor (Rainfall)
++ Octopus Rain sensor
 + 
 + Alternatively:
 To use thunderboard sense 2 *(with external sensors): replace line "from IoT_sensing.ble_scanner import *" with "from IoT_sensing.tbsense_scan import *" in main.py
