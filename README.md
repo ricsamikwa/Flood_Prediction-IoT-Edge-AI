@@ -21,3 +21,4 @@ Once running:
 + Alternatively:
 To use thunderboard sense 2 *(with external sensors): replace line "from IoT_sensing.ble_scanner import *" with "from IoT_sensing.tbsense_scan import *" in main.py
 
+Paper: https://ieeexplore.ieee.org/abstract/document/9291641
