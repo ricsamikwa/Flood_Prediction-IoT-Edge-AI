@@ -2,10 +2,16 @@
 
 Contributor(s): Eric Samikwa
 
-## Dependencies :
+## Dependencies 
 + python 3
 + tensorflow 
 + bluepy
+
+## Usage
+
+Launch the file ble_scanner.py (on Arduino nano 33 BLE nodes) or tbsense_scan.py (on Thunderboard sense nodes) in `IoT_sensing` folder.
+
+Launch the main.py file on the Edge computing device (e.g. Raspberry or Jetson device with BLE capability).
 
 Once running:
 + See https://thingspeak.com/channels/990314 
@@ -17,13 +23,13 @@ Once running:
 + Arduino nano 33 BLE(s)
 + Water level sensor(s)
 + Octopus Rain sensor
-+ 
+
 + Alternatively:
 To use thunderboard sense 2 *(with external sensors): replace line "from IoT_sensing.ble_scanner import *" with "from IoT_sensing.tbsense_scan import *" in main.py
 
 Paper: https://ieeexplore.ieee.org/abstract/document/9291641
 
-### Citation
+## Citation
 
 Please cite the paper as follows: Samikwa, Eric, Thiemo Voigt, and Joakim Eriksson. "Flood Prediction Using IoT and Artificial Neural Networks with Edge Computing." 2020 International Conferences on Internet of Things (iThings) and IEEE Green Computing and Communications (GreenCom) and IEEE Cyber, Physical and Social Computing (CPSCom) and IEEE Smart Data (SmartData) and IEEE Congress on Cybermatics (Cybermatics). IEEE, 2020. 
 ```
